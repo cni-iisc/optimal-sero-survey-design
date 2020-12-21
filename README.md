@@ -48,4 +48,4 @@ If you are using this code, please consider citing the paper
 
 ## License
 The source code is publicly available under the Apache2 license terms.
-Copyrights for the work belongs to the Indian Institute of Science
+Copyrights for the work belongs to the Indian Institute of Science Bangalore, Indian Statistical Institute Bangalore Centre and Indian Institute of Public Health Bangalore.
