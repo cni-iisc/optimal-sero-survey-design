@@ -1,0 +1,5 @@
+Infection.State,RAT,RTPCR,AB
+Active.Infection,1,1,0
+Antibodies,0,0,1
+Active.Infection.Antibodies,1,1,1
+Neither,0,0,0
