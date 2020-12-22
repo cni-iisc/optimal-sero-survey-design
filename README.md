@@ -1,7 +1,7 @@
 # Optimal Design of sero surveys 
 This repository contains the source code for the paper titled, "*COVID-19: Optimal Design of Serosurveys for Disease Burden Estimation*".
 
-The full-text article is available on [platform](#)
+The full-text article accompanying this code will be made available soon.
 
 The code is written mostly in Python with a few R code and have been used to get the results reported in Table 3. The required packages for the python scripts are mentioned under `requirements.txt`.
 
@@ -37,8 +37,7 @@ python main.py -C 10000 -cRAT 0.5 -cRTPCR 0.1 -cIGG 0.45 -m grid
 ```
 
 
-
-`optimization/by_symptomatics.R` is the implementation of the optimization with respect to the symptomatic fraction that are detected using the rapid antigent test, as proposed in Theorem 4.
+The R code for the optimization described in Theorem 1 is available in the `R_code` directory. The R code can be run for R studio, the path to the input files are set relative to the `R_code` directory.
 
 ## Citation
 If you are using this code, please consider citing the paper
