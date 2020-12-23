@@ -40,7 +40,14 @@ The R code for the optimization described in Theorem 1 is available in the `R_co
 ## Citation
 If you are using this code, please consider citing the paper
 ```bibtex
-
+@misc{athreya2020covid19,
+      title={COVID-19: Optimal Design of Serosurveys for Disease Burden Estimation}, 
+      author={Siva Athreya and Giridhara R. Babu and Aniruddha Iyer and Mohammed Minhaas B. S. and Nihesh Rathod and Sharad Shriram and Rajesh Sundaresan and Nidhin Koshy Vaidhiyan and Sarath Yasodharan},
+      year={2020},
+      eprint={2012.12135},
+      archivePrefix={arXiv},
+      primaryClass={stat.AP}
+}
 ```
 
 ## License
