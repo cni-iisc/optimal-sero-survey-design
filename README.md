@@ -1,7 +1,5 @@
 # Optimal Design of sero surveys 
-This repository contains the source code for the paper titled, "*COVID-19: Optimal Design of Serosurveys for Disease Burden Estimation*".
-
-The full-text article accompanying this code will be made available soon.
+This repository contains the source code for the paper titled, "*COVID-19: Optimal Design of Serosurveys for Disease Burden Estimation*". The pre-print of the paper is available on [arxiv](http://arxiv.org/abs/2012.12135).
 
 The code is written mostly in Python with a few R code and have been used to get the results reported in Table 3. The required packages for the python scripts are mentioned under `requirements.txt`.
 
