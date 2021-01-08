@@ -29,7 +29,7 @@ def exhaustive_search(cRAT, cRTPCR, cIgG, p1_start=0.01, p1_end=0.16, p2_start=0
 
             condition = True
             progress = idx
-            while(condition and p_vec.sum() <= 1):
+            while(condition and sum(p_vec) <= 1):
                 try:
                     v, v_vec = minimize_v(p_vec, mat, weps)
                 except:
