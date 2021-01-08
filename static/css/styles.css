@@ -1,0 +1,21 @@
+.logo {
+  float: left;
+  width:  100px;
+  height: 100px;
+  padding: 0 auto;
+}
+
+.vl {
+  border-left: 2px solid gray;
+  height: 725px;
+  position: relative;
+  top: 0;
+}
+
+.logoDiv{
+  float: right;
+}
+
+#strand{
+  width:200%
+}

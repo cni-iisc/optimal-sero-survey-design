@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Designing Optimal Serosurveys</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+	</head>
+	<body>
+		<div class="container-fluid">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3>Optimal Design of Serosurveys for Disease Burden Estimation</h3>
+				</div>
+				<div class="panel-body">
+					<p>This interface helps you design optimal surveys for disease burden estimation.
+					<!-- <p>We provide a methodology by which an epidemiologist may arrive at an optimal design for a survey whose goal is to estimate the disease burden in a population. For serosurveys with a given budget of C rupees, a specified set of tests with costs, sensitivities, and specificities, we show the existence of optimal designs in four different contexts, including the well known c-optimal design. Our results are applicable to a wide range of epidemiological surveys under the assumptions that the estimate's Fisher-information matrix satisfies a uniform positive definite criterion.</p> -->
+					For details, see our report titled <emph><a href="http://arxiv.org/abs/2012.12135">"COVID-19: Optimal Design of Serosurveys for Disease Burden Estimation"</a></emph>. </p>
+				</div>
+			</div>
+			<hr>
+			<div class="row">
+				<div class="col-5">
+					<form  action="/" method="post" class="needs-validation" novalidate>
+						<h5>Enter test costs</h5>
+						<div class="form-group row">
+							<label class="col-sm-3 col-form-label" for="cRAT">RAT</label>
+							<div class="input-group mb-3 col-sm-4">
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="basic-addon3">&#8377;</span>
+								</div>
+								<input type="text" class="form-control" id="cRAT" name="cRAT" value="450" aria-describedby="basic-addon3">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-3 col-form-label" for="cRTPCR">RT-PCR test</label>
+							<div class="input-group mb-3 col-sm-4">
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="basic-addon3">&#8377;</span>
+								</div>
+								<input type="text" class="form-control" id="cRTPCR" name="cRTPCR" value="1000" aria-describedby="basic-addon3">
+							</div>
+						</div>												
+						<div class="form-group row">
+							<label class="col-sm-3 col-form-label" for="cIGG"> IgG Antibody test</label>
+								<div class="input-group mb-1 col-sm-4">
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="basic-addon3">&#8377;</span>
+								</div>
+								<input type="text" class="form-control" id="cIGG" name="cIGG" value="300" aria-describedby="basic-addon3">
+							</div>
+						</div>
+						<hr>
+						<h5>What kind of design? </h5>
+						<div class="container">
+							<div class="form-check row">
+								<input class="form-check-input" type="radio" name="method" id="method1" value="local" checked>
+								<label class="form-check-label" for="method1">
+									Locally optimal design
+								</label>
+							</div> 
+							<div class="form-check row">
+								<input class="form-check-input" type="radio" name="method" id="method2" value="grid">
+								<label class="form-check-label" for="method2">
+									Worst-case design (this may take some time)
+								</label>
+							</div>
+						</div>
+						<hr>
+						<h5 id="heading"></h5>
+						<div class="container" id="fixedP">
+							<div class="form-group row">
+								<label for="p1" class="col-sm-6 col-form-label">What fraction have active infection alone? </label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="p1" name="p1" value="0.1" step="0.001">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="p2" class="col-sm-6 col-form-label">What fraction have antibodies alone?</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="p2" name="p2" value="0.3" step="0.001">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="p3" class="col-sm-6 col-form-label">What fraction have both?</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="p3" name="p3" value="0.01" step="0.001">
+								</div>
+							</div>
+						</div>
+						<div class="container" id="dynamicP">
+							<div class="form-group row">
+								<label for="p1" class="col-sm-6 col-form-label">What fraction have active infection alone? </label>
+								<div class="col-sm-5">
+									<div class="row">
+										<input type="number" class="form-control col-5" id="p1_start" value="0.01" step="0.001">
+										<div class="col-2">to</div>
+										<input type="number" class="form-control col-5" id="p1_end" value="0.15" step="0.001">	
+									</div>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="p2" class="col-sm-6 col-form-label">What fraction have antibodies alone?</label>
+								<div class="col-sm-5">
+									<div class="row">
+										<input type="number" class="form-control col-5" id="p2_start" value="0.10" step="0.001">
+										<div class="col-2">to</div>
+										<input type="number" class="form-control col-5" id="p2_end" value="0.50" step="0.001">	
+									</div>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-6 col-form-label">What fraction have both?</label>
+								<div class="col-sm-5">
+									<div class="row">
+										<input type="number" class="form-control col-5" id="p3_start" value="0.00" step="0.001">
+										<div class="col-2">to</div>
+										<input type="number" class="form-control col-5" id="p3_end" value="0.02" step="0.001">	
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group row" id="designEffect">
+							<label class="col-sm-6 col-form-label" for="dEffect">Enter design effect</label>
+							<div class="col-sm-2">
+								<input type="number" class="form-control" id="dEffect" name="dEffect" value="1.0" step="0.01" min="1.0">
+							</div>
+						</div>
+						<hr>
+						<h5>What would you like to estimate? </h5>
+						<div class="container">
+							<div class="form-check row">
+								<input class="form-check-input" type="radio" name="option" id="option1" value="error">
+								<label class="form-check-label" for="option1">
+									Estimate margin of error (for 95% confidence), given a budget
+								</label>
+							</div> 
+							<div class="form-check row">
+								<input class="form-check-input" type="radio" name="option" id="option2" value="cost">
+								<label class="form-check-label" for="option2">
+									Estimate budget, given a margin of error (for 95% confidence)
+								</label>
+							</div>
+							<br>
+							<div class="form-group row">
+								<label class="col-sm-4 col-form-label" for="budget">Enter budget</label>
+								<div class="input-group mb-3 col-sm-6">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="basic-addon3">&#8377;</span>
+									</div>
+									<input type="number" class="form-control" id="budget" name="budget" value="{{ mCost }}" step="100" aria-describedby="basic-addon3">
+								</div>
+							</div>
+							<div class="form-group row" id="marginInput">
+								<label class="col-sm-4 col-form-label" for="margin">Margin of Error</label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" id="margin" name="margin" value="{{ m }}" step="0.0001">
+								</div>
+							</div>
+						</div>
+						<button class="btn btn-success" type="submit">Go</button>
+					</form>
+				</div>
+
+				{% if column_names.shape[0] > 0 %}
+				<div class="vl"></div>
+				
+
+				<div class="col">
+					{% set number = m | float %}
+					{% if (column_names.shape[0] > 0)  and  not (number > 3)%}
+						<h3>Result</h3>
+						<p class="col-form-label">
+							The table below tells the number of participants for each subset of tests. 1 indicates that the test will be conducted; 0 indicates the test will not be conducted.
+						</p>
+					<table class="table table-bordered table-striped">
+						<tr class="thead-light">
+							{% for col in column_names %}
+							<th>{{col}}</th>
+							{% endfor %}
+						</tr>
+						{% for row in row_data %}
+						<tr>
+							{% for col, row_ in zip(column_names, row) %}
+								<td>{{row_}}</td>
+							{% endfor %}
+						</tr>
+						{% endfor %}
+					</table>
+					<h6>Total cost for the optimized study design is {{ totalCost }}</h6>
+					{% else %}
+					<h6>No optimal solution found for the budget {{ mCost }}, please update and run again.</h6>
+					{% endif %}
+				</div>	
+				{% endif %}	
+			</div>
+		</div>
+		<hr>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-5">
+					<p>The source code is publicly available on <a href="https://github.com/cni-iisc/optimal-sero-survey-design">GitHub</a> under the Apache2 license terms.
+						Copyrights for the work belongs to the Indian Institute of Science Bangalore, Indian Statistical Institute Bangalore Centre and Indian Institute of Public Health Bangalore and Strand Life Sciences, Bangalore.
+						</p>
+				</div>
+				<div class="col-7">
+					<div class="row">
+						<div class="col-2">
+							<img class="img-responsive logo" alt="IISc, Bangalore" src="{{ url_for('static', filename='img/iisc.png') }}">
+						</div>
+						<div class="col-2">
+							<img class="img-responsive logo" alt="ISI, Bangalore" src="{{ url_for('static', filename='img/isi.png') }}">
+						</div>
+						<div class="col-2">
+							<img class="img-responsive logo" alt="IIPH, Bangalore" src="{{ url_for('static', filename='img/iiph.jpeg') }}">
+						</div>
+						<div class="col-2">
+							<img id="strand" class="img-responsive logo" alt="Strand LS, Bangalore" src="{{ url_for('static', filename='img/strand.jpeg') }}">
+						</div>
+					</div>
+				</div>
+		</div>
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+		<script type="text/javascript" src="{{ url_for('static', filename='js/validate.js') }}"></script>
+		<script type="text/javascript" src="{{ url_for('static', filename='js/select_input.js') }}"></script>
+	</body>
+</html>

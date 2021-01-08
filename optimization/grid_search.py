@@ -5,7 +5,7 @@ from modules.make_fisher_info_matrix import *
 from modules.constOptFunc import *
 
 
-def exhaustive_search(cRAT, cRTPCR, cIgG, C):
+def exhaustive_search(cRAT, cRTPCR, cIgG, p1_start=0.01, p1_end=0.16, p2_start=0.10, p2_end=0.51, p3_start=0.00, p3_end=0.03):
     testCosts = [cRAT, cRTPCR, cIgG] #Basic cost of RAT, RT-PCR, IgG antibody tests
     outputFile = './data/outputs/output_grid.tsv'
     dataDir = "./data/inputs"
@@ -16,9 +16,8 @@ def exhaustive_search(cRAT, cRTPCR, cIgG, C):
     weps = np.random.choice(50,7) #0.125
     weps = weps/(weps.sum() + 5)
     init_list = np.linspace(0,1,101).tolist()
-
-    plist = make_p_combinations_specific()
-
+    progress = 0
+    plist = make_p_combinations_specific(p1_start, p1_end, p2_start, p2_end, p3_start, p3_end)
     with open(outputFile, 'w') as csvfile:
         fieldnames = ['idx', 'v_val', 'p_in', 'v_vec', 'time']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter="\t")
@@ -29,7 +28,8 @@ def exhaustive_search(cRAT, cRTPCR, cIgG, C):
             print(p_vec)
 
             condition = True
-            while(condition):
+            progress = idx
+            while(condition and p_vec.sum() <= 1):
                 try:
                     v, v_vec = minimize_v(p_vec, mat, weps)
                 except:
@@ -49,5 +49,5 @@ def exhaustive_search(cRAT, cRTPCR, cIgG, C):
                 "time": (time.time() - start_time)
             })
 
-    v_vec_out = process_v_vector(outputFile)
-    return get_final_solution(mat, v_vec_out, C)
+    v_vec_out, max_v_val = process_v_vector(outputFile)
+    return get_make_solDF(mat, v_vec_out), max_v_val
