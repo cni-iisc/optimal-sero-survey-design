@@ -23,12 +23,6 @@ for(var i = 0; i < method.length; i++) {
    }
  }
 
-$("label[for='margin']").text("Enter margin of error");
-$("label[for='budget']").text("Budget");
-$("#budget").prop('readonly', false);
-$("#margin").prop('readonly', true);
- 
-
 // setting the input field as editable based on option selected
 $('input:radio[name="option"]').change(function(){
     if($(this).val() == 'error'){
@@ -52,10 +46,6 @@ $('input:radio[name="option"]').change(function(){
 window.onload = function() {
   console.log($('input:radio[name="method"]').val());
   console.log($('input:radio[name="option"]').val());
-  // // If sessionStorage is storing default values (ex. name), exit the function and do not restore data
-  // if (sessionStorage.getItem('name') == "name") {
-  //     return;
-  // }
 
   // If values are not blank, restore them to the fields
   var cRAT = sessionStorage.getItem('cRAT');
@@ -90,18 +80,23 @@ window.onload = function() {
   //Method
   var methodList = document.getElementsByName("method"); // list of radio buttons
   var methodVal = sessionStorage.getItem('method'); // local storage value
-  for(var i=0;i<methodList.length;i++){
-    if(methodList[i].value == methodVal){
-      methodList[i].checked = true; // marking the required radio as checked
+  if (methodVal !== null){
+    for(var i=0;i<methodList.length;i++){
+      if(methodList[i].value == methodVal){
+        methodList[i].checked = true; // marking the required radio as checked
+      }
     }
   }
+
   //Options
   var optionList = document.getElementsByName("option"); // list of radio buttons
   var optionVal = sessionStorage.getItem('option'); // local storage value
-  for(var i=0;i<optionList.length;i++){
-    if(optionList[i].value == optionVal){
-      optionList[i].checked = true; // marking the required radio as checked
-    }  
+  if (optionVal !== null){
+    for(var i=0;i<optionList.length;i++){
+      if(optionList[i].value == optionVal){
+        optionList[i].checked = true; // marking the required radio as checked
+      }  
+    }
   }
 }
 
@@ -114,7 +109,7 @@ window.onbeforeunload = function() {
   sessionStorage.setItem("dEffect", $('#dEffect').val());
   sessionStorage.setItem("method", $('input:radio[name="method"]').val());
   sessionStorage.setItem("option", $('input:radio[name="option"]').val());
-
+  console.log($('input:radio[name="option"]').val());
   sessionStorage.setItem("p1" , $("#p1").val());
   sessionStorage.setItem("p2" , $("#p2").val());
   sessionStorage.setItem("p3" , $("#p3").val());

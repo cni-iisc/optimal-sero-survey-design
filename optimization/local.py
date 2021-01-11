@@ -8,8 +8,18 @@ def local_optimization(cRAT, cRTPCR, cIgG, p_vec):
   dataDir = "./data/inputs"
   weps_val = 0.125
 
-  # Make fisher inforamtion matrix
+  # Make fisher inforamtion matrix with specificities and specificities
+  specRAT = 0.975
+  specRTPCR =0.97
+  specIGG = 0.977
+
+  senRAT = 0.5
+  senRTPCR = 0.95
+  senIGG = 0.921
+
   mat = make_fisher_info_matrix(dataDir, testCosts)
+  mat.set_sensitivities(senRAT, senRTPCR, senIGG)
+  mat.set_specificities(specRAT, specRTPCR, specIGG)
 
   # minimize
   lenw = mat.get_lenw()

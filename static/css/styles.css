@@ -19,4 +19,13 @@
 #strand{
   width:200%
 }
+.input-group-addon,
+.input-group-addon + input {
+   box-shadow: none;
+}
 
+.footer {                                                                       
+     background-color:#009933;                                                     
+     padding: 0 1.5rem;
+     font-size: 14px;                                                         
+}  
