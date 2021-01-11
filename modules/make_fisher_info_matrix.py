@@ -47,6 +47,7 @@ class make_fisher_info_matrix():
       ##0=RAT,1=RTPCR,2=AB
       Spec = [0.975,0.97,0.977]
       Sen  = [0.5,0.95,0.921]
+
       for j in range(3):
           if(x[j] == "0.0"):
               for i in range(4):

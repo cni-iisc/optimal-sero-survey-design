@@ -23,6 +23,12 @@ for(var i = 0; i < method.length; i++) {
    }
  }
 
+$("label[for='margin']").text("Enter margin of error");
+$("label[for='budget']").text("Budget");
+$("#budget").prop('readonly', false);
+$("#margin").prop('readonly', true);
+ 
+
 // setting the input field as editable based on option selected
 $('input:radio[name="option"]').change(function(){
     if($(this).val() == 'error'){

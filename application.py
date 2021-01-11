@@ -86,4 +86,4 @@ def init():
     return render_template('index.html', m=("%.5f" % marginError), mCost=budget, totalCost=totalCost, column_names=res.columns.values, row_data=list(res.values.tolist()), zip=zip)
  
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)
