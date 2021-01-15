@@ -1,31 +1,18 @@
-.logo {
-  float: left;
-  width:  100px;
+body {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  line-height: 1.6;
+}
+
+.logo{
+  /* float:right; */
+  width: 100px;
   height: 100px;
-  padding: 0 auto;
 }
 
-.vl {
-  border-left: 2px solid gray;
-  height: 725px;
-  position: relative;
-  top: 0;
-}
-
-.logoDiv{
-  float: right;
-}
-
-#strand{
-  width:200%
-}
 .input-group-addon,
 .input-group-addon + input {
    box-shadow: none;
 }
 
-.footer {                                                                       
-     background-color:#009933;                                                     
-     padding: 0 1.5rem;
-     font-size: 14px;                                                         
-}  

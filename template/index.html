@@ -20,69 +20,86 @@
 					For details, see our report titled <emph><a href="http://arxiv.org/abs/2012.12135">"COVID-19: Optimal Design of Serosurveys for Disease Burden Estimation"</a></emph>. </p>
 				</div>
 			</div>
-			<hr>
-			<div class="row">
-				<div class="col-5">
+		</div>
+		<hr>
+		<div class="container-fluid">
+			<div class="row align-items-start">
+				<!-- Inputs for optimization -->
+				<div class="col-lg-5 col-md-5 col-sm-12">
 					<form  action="/" method="post" class="needs-validation" novalidate>
 						<h5>Set-up test parameters</h5>
-						<table class="table table-borderless">
-							<thead>
-							  <tr>
-								<th scope="col">Test</th>
-								<th scope="col">Cost</th>
-								<th scope="col">Specificity</th>
-								<th scope="col">Sensitivity</th>
-							  </tr>
-							</thead>
-							<tbody>
-							  <tr>
-								<th scope="row">RAT</th>
-								<td class="form-group input-group mb-3">
-									<div class="input-group-prepend">
-										<span class="input-group-text" id="basic-addon3">&#8377;</span>
-									</div>
-									<input type="text" class="form-control" id="cRAT" name="cRAT" value="450" aria-describedby="basic-addon3">
-								</td>
-								<td>
-									<input type="text" class="form-control" id="specRAT" name="specRAT" value="0.975" disabled>
-								</td>
-								<td>
-									<input type="text" class="form-control" id="senRAT" name="senRAT" value="0.5" disabled>
-								</td>
-							  </tr>
-							  <tr>
-								<th scope="row">RT-PCR Test</th>
-								<td class="form-group input-group mb-3">
-									<div class="input-group-prepend">
-										<span class="input-group-text" id="basic-addon3">&#8377;</span>
-									</div>
-									<input type="text" class="form-control" id="cRTPCR" name="cRTPCR" value="1000" aria-describedby="basic-addon3">
-								</td>
-								<td>
-									<input type="text" class="form-control" id="specRTPCR" name="specRTPCR" value="0.97" disabled>
-								</td>
-								<td>
-									<input type="text" class="form-control" id="senRTPCR" name="senRTPCR" value="0.95" disabled>
-								</td>
-							  </tr>
-							  <tr>
-								<th scope="row">IgG Antibody test</th>
-								<td class="form-group input-group mb-3">
-									<div class="input-group-prepend">
-										<span class="input-group-text" id="basic-addon3">&#8377;</span>
-									</div>
-									<input type="text" class="form-control" id="cIGG" name="cIGG" value="300" aria-describedby="basic-addon3">
-								</td>
-								<td>
-									<input type="text" class="form-control" id="specIGG" name="specIGG" value="0.977" disabled>
-								</td>
-								<td>
-									<input type="text" class="form-control" id="senIGG" name="senIGG" value="0.921" disabled>
-								</td>
-							  </tr>
-							</tbody>
-						  </table>
+						<div class="container-fluid">
+							<!-- table header -->
+							<div class="row align-items-start">
+								<div class="col-2"><strong>Test</strong></div>
+								<div class="col-4"><strong>Cost</strong></div>
+								<div class="col-3"><strong>Specificity</strong></div>
+								<div class="col-3"><strong>Sensitivity</strong></div>
+							</div>
 
+							<!-- RAT test parameters -->
+							<div class="row align-items-start">
+								<div class="col-2">
+									<strong>RAT</strong>
+								</div>
+								<div class="col-4">
+									<div class="form-group input-group">
+										<div class="input-group-prepend">
+											<span class="input-group-text" id="basic-addon30">&#8377;</span>
+										</div>
+										<input type="text" class="form-control" id="cRAT" name="cRAT" value="450" aria-describedby="basic-addon30">
+									</div>
+								</div>
+								<div class="col-3">
+									<input type="text" class="form-control" id="specRAT" name="specRAT" value="0.975" disabled>
+								</div>
+								<div class="col-3">
+									<input type="text" class="form-control" id="senRAT" name="senRAT" value="0.5" disabled>
+								</div>
+							</div>
+
+							<!-- RT-PCR test parameters -->
+							<div class="row align-items-start">
+								<div class="col-2">
+									<strong>RT-PCR Test</strong>
+								</div>
+								<div class="col-4">
+									<div class="form-group input-group">
+										<div class="input-group-prepend">
+											<span class="input-group-text" id="basic-addon31">&#8377;</span>
+										</div>
+										<input type="text" class="form-control" id="cRTPCR" name="cRTPCR" value="1000" aria-describedby="basic-addon31">
+									</div>
+								</div>
+								<div class="col-3">
+									<input type="text" class="form-control" id="specRTPCR" name="specRTPCR" value="0.97" disabled>
+								</div>
+								<div class="col-3">
+									<input type="text" class="form-control" id="senRTPCR" name="senRTPCR" value="0.95" disabled>
+								</div>
+							</div>
+
+							<!-- Antibody test parameters -->
+							<div class="row align-items-start">
+								<div class="col-2">
+									<strong>IgG Anti-body test</strong>
+								</div>
+								<div class="col-4">
+									<div class="form-group input-group">
+										<div class="input-group-prepend">
+											<span class="input-group-text" id="basic-addon32">&#8377;</span>
+										</div>
+										<input type="text" class="form-control" id="cIGG" name="cIGG" value="300" aria-describedby="basic-addon32">
+									</div>
+								</div>
+								<div class="col-3">
+									<input type="text" class="form-control" id="specIGG" name="specIGG" value="0.977" disabled>
+								</div>
+								<div class="col-3">
+									<input type="text" class="form-control" id="senIGG" name="senIGG" value="0.921" disabled>
+								</div>
+							</div>
+						</div> <!-- Table end -->
 						<hr>
 						<h5>What kind of design? </h5>
 						<div class="container">
@@ -95,7 +112,7 @@
 							<div class="form-check row">
 								<input class="form-check-input" type="radio" name="method" id="method2" value="grid" disabled>
 								<label class="form-check-label" for="method2">
-									Worst-case design (This option is disabled on the application, and is available only to the developers at this moment.) 
+									Worst-case design <br> (This option is disabled on the application, and is available only to the developers at this moment.) 
 								</label>
 							</div>
 						</div>
@@ -153,17 +170,20 @@
 								</div>
 							</div>
 						</div>
-						<div class="form-group row" id="designEffect">
-							<label class="col-sm-6 col-form-label" for="dEffect">Enter design effect</label>
-							<div class="col-sm-2">
-								<input type="number" class="form-control" id="dEffect" name="dEffect" value="2.1" step="0.01" min="1.0">
+						<hr>
+						<div class="container">
+							<div class="form-group row" id="designEffect">
+								<label class="col-sm-6 col-form-label" for="dEffect">Enter design effect</label>
+								<div class="col-sm-2">
+									<input type="number" class="form-control" id="dEffect" name="dEffect" value="2.1" step="0.01" min="1.0">
+								</div>
 							</div>
 						</div>
 						<hr>
 						<h5>What would you like to estimate? </h5>
 						<div class="container">
 							<div class="form-check row">
-								<input class="form-check-input" type="radio" name="option" id="option2" value="cost" checked>
+								<input class="form-check-input" type="radio" name="option" id="option2" value="cost">
 								<label class="form-check-label" for="option2">
 									Estimate budget, given a margin of error (for 95% confidence)
 								</label>
@@ -196,67 +216,79 @@
 					</form>
 				</div>
 
-				<div id="loading" class="loader centered" style="display:none;">
-				</div> 
+				<!-- Loader css -->
+				<div id="loading" class="loader centered" style="display:none;"></div> 
 
+				<!-- Render the result -->
 				{% if column_names.shape[0] > 0 %}
-				<div class="col">
-					{% set number = m | float %}
-					{% if (column_names.shape[0] > 0)  and  not (number > 3)%}
-						<h3>Result</h3>
-						<p class="col-form-label">
-							The table below tells the number of participants for each subset of tests. 1 indicates that the test will be conducted; 0 indicates the test will not be conducted.
-						</p>
-					<table class="table table-bordered table-striped">
-						<tr class="thead-light">
-							{% for col in column_names %}
-							<th>{{col}}</th>
-							{% endfor %}
-						</tr>
-						{% for row in row_data %}
-						<tr>
-							{% for col, row_ in zip(column_names, row) %}
-								<td>{{row_}}</td>
-							{% endfor %}
-						</tr>
-						{% endfor %}
-					</table>
-					<h6>Total cost for the optimized study design is {{ totalCost }}</h6>
-					{% else %}
-					<h6>No optimal solution found for the budget {{ mCost }}, please update and run again.</h6>
-					{% endif %}
-				</div>	
+					<div class="col">
+						{% set number = m | float %}
+						{% if (column_names.shape[0] > 0)  and  not (number > 3)%}
+							<br><br>
+							<h3>Result</h3>
+							<p class="col-form-label">
+								The table below tells the number of participants for each subset of tests. 1 indicates that the test will be conducted; 0 indicates the test will not be conducted.
+							</p>
+							<table class="table table-bordered table-striped table-responsive-sm">
+								<tr class="thead-light">
+									{% for col in column_names %}
+									<th>{{col}}</th>
+									{% endfor %}
+								</tr>
+								{% for row in row_data %}
+								<tr>
+									{% for col, row_ in zip(column_names, row) %}
+										<td>{{row_}}</td>
+									{% endfor %}
+								</tr>
+								{% endfor %}
+							</table>
+							<h6 class="jumbotron">Total cost for the optimized study design is <strong>{{ totalCost }}</strong></h6>
+						{% else %}
+							<h6>No optimal solution found for the budget {{ mCost }}, please update and run again.</h6>
+						{% endif %}
+					</div>	
 				{% endif %}	
-			</div>
+			</div>		
 		</div>
+			<!--
+
+						-->
 		<hr>
-		<div class="container-fluid">
+
+		<footer class="pt-4 my-md-5 pt-md-5 border-top">
 			<div class="row">
-				<div class="col-5">
-					<p>The source code is publicly available on <a href="https://github.com/cni-iisc/optimal-sero-survey-design">GitHub</a> under the Apache2 license terms.
-						Copyrights for the work belongs to the Indian Institute of Science Bangalore, Indian Statistical Institute Bangalore Centre and Indian Institute of Public Health Bangalore and Strand Life Sciences, Bangalore.
-						</p>
+				<div class="col-12 col-md">
+					<p>
+						The source code is publicly available on <a href="https://github.com/cni-iisc/optimal-sero-survey-design">GitHub</a> under the Apache2 license.<br>
+						© Copyright for the work belongs to the Indian Institute of Science Bangalore, Indian Statistical Institute Bangalore Centre and Indian Institute of Public Health Bangalore and Strand Life Sciences, Bangalore.<br>
+						For queries, reach us at:<a class="glyphicon glyphicon-envelope link-secondary" href="mailto:contact.cni@iisc.ac.in"> contact.cni@iisc.ac.in</a>
+					</p>
 				</div>
-				<div class="col-7">
-					<div class="row">
-						<div class="col-2">
-							<img class="img-responsive logo" alt="IISc, Bangalore" src="{{ url_for('static', filename='img/iisc.png') }}">
-						</div>
-						<div class="col-2">
-							<img class="img-responsive logo" alt="ISI, Bangalore" src="{{ url_for('static', filename='img/isi.png') }}">
-						</div>
-						<div class="col-2">
-							<img class="img-responsive logo" alt="IIPH, Bangalore" src="{{ url_for('static', filename='img/iiph.jpeg') }}">
-						</div>
-						<div class="col-2">
-							<img id="strand" class="img-responsive logo" alt="Strand LS, Bangalore" src="{{ url_for('static', filename='img/strand.jpeg') }}">
-						</div>
-					</div>
-				</div>		 
-		</div>
-		<div class="row footer">
-			<a class="glyphicon glyphicon-envelope" href="mailto:contact.cni@iisc.ac.in" style="color:#fff">Email: contact.cni@iisc.ac.in</a>
-		</div>
+			</div>
+			<div class="row">
+			  <div class="col-6 col-md">
+				<a href="https://iisc.ac.in" class="link-secondary">
+					<img class="img-responsive logo" alt="IISc, Bangalore" src="{{ url_for('static', filename='img/iisc.png') }}">
+				</a>
+			  </div>
+			  <div class="col-6 col-md">
+				  <a href="https://www.isibang.ac.in/" class="link-secondary">
+					<img class="img-responsive logo" alt="ISI, Bangalore" src="{{ url_for('static', filename='img/isi.png') }}">
+				  </a>
+			  </div>
+			  <div class="col-6 col-md">
+				  <a href="https://phfi.org/" class="link-secondary">
+					<img class="img-responsive logo" alt="IIPH, Bangalore" src="{{ url_for('static', filename='img/iiph.jpeg') }}">
+				  </a>
+			  </div>
+			  <div class="col-6 col-md">
+				  <a href="https://strandls.com/" class="link-secondary">
+					<img class="img-responsive logo" alt="Strand LS, Bangalore" src="{{ url_for('static', filename='img/strand.jpeg') }}">
+				  </a>
+			  </div>
+			</div>
+		</footer>
 		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

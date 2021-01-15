@@ -31,8 +31,7 @@ def init():
         p2 = [float(x) for x in request.form.get('p2').split(" - ")]
         p3 = [float(x) for x in request.form.get('p3').split(" - ")]
         dEffect =  float(request.form.get('dEffect'))
-        print(method, p1, p2, p3)
-        
+       
         # convert to units of 1000 rupees
         cRAT = float(cRAT) / 1000
         cRTPCR = float(cRTPCR) / 1000

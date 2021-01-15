@@ -44,8 +44,6 @@ $('input:radio[name="option"]').change(function(){
 
 // Run on page load
 window.onload = function() {
-  console.log($('input:radio[name="method"]').val());
-  console.log($('input:radio[name="option"]').val());
 
   // If values are not blank, restore them to the fields
   var cRAT = sessionStorage.getItem('cRAT');
@@ -78,26 +76,24 @@ window.onload = function() {
 
   // restore the values of the radio buttons that were checked
   //Method
-  var methodList = document.getElementsByName("method"); // list of radio buttons
   var methodVal = sessionStorage.getItem('method'); // local storage value
   if (methodVal !== null){
-    for(var i=0;i<methodList.length;i++){
-      if(methodList[i].value == methodVal){
-        methodList[i].checked = true; // marking the required radio as checked
-      }
-    }
+    $("input[name=method][value="+methodVal+"]").prop('checked', true);
+  }
+  else{
+    $("input[name=method][value=local]").prop('checked', true);
   }
 
-  //Options
-  var optionList = document.getElementsByName("option"); // list of radio buttons
   var optionVal = sessionStorage.getItem('option'); // local storage value
+  console.log(optionVal)
   if (optionVal !== null){
-    for(var i=0;i<optionList.length;i++){
-      if(optionList[i].value == optionVal){
-        optionList[i].checked = true; // marking the required radio as checked
-      }  
-    }
+    $("input[name=option][value="+optionVal+"]").prop('checked', true);
   }
+  else{
+    $("input[name=option][value=cost]").prop('checked', true);
+  }
+  
+
 }
 
 // Before refreshing the page, save the form data to sessionStorage
@@ -107,9 +103,8 @@ window.onbeforeunload = function() {
   sessionStorage.setItem("cRTPCR", $('#cRTPCR').val());
   sessionStorage.setItem("cIGG", $('#cIGG').val());
   sessionStorage.setItem("dEffect", $('#dEffect').val());
-  sessionStorage.setItem("method", $('input:radio[name="method"]').val());
-  sessionStorage.setItem("option", $('input:radio[name="option"]').val());
-  console.log($('input:radio[name="option"]').val());
+  sessionStorage.setItem("method", $('input:radio[name="method"]:checked').val());
+  sessionStorage.setItem("option", $('input:radio[name="option"]:checked').val());
   sessionStorage.setItem("p1" , $("#p1").val());
   sessionStorage.setItem("p2" , $("#p2").val());
   sessionStorage.setItem("p3" , $("#p3").val());

@@ -15,7 +15,6 @@
         if (form.checkValidity() === false) {
           event.preventDefault();
           event.stopPropagation();
-          console.log("inside validate -- 2");
         }
         form.classList.add('was-validated');
       }, false);
