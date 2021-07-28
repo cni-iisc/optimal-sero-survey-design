@@ -23,6 +23,13 @@
 		</div>
 		<hr>
 		<div class="container-fluid">
+			{% if message %}
+			<div class="container alert alert-danger">
+			   <div class="row">
+			      <div class="col">{{message}}</div>
+			   </div>
+			</div>
+			{% endif %}
 			<div class="row align-items-start">
 				<!-- Inputs for optimization -->
 				<div class="col-lg-5 col-md-5 col-sm-12">
@@ -51,10 +58,10 @@
 									</div>
 								</div>
 								<div class="col-3">
-									<input type="text" class="form-control" id="specRAT" name="specRAT" value="0.975" disabled>
+									<input type="text" class="form-control" id="specRAT" name="specRAT" value="0.975">
 								</div>
 								<div class="col-3">
-									<input type="text" class="form-control" id="senRAT" name="senRAT" value="0.5" disabled>
+									<input type="text" class="form-control" id="senRAT" name="senRAT" value="0.5">
 								</div>
 							</div>
 
@@ -72,10 +79,10 @@
 									</div>
 								</div>
 								<div class="col-3">
-									<input type="text" class="form-control" id="specRTPCR" name="specRTPCR" value="0.97" disabled>
+									<input type="text" class="form-control" id="specRTPCR" name="specRTPCR" value="0.97">
 								</div>
 								<div class="col-3">
-									<input type="text" class="form-control" id="senRTPCR" name="senRTPCR" value="0.95" disabled>
+									<input type="text" class="form-control" id="senRTPCR" name="senRTPCR" value="0.95">
 								</div>
 							</div>
 
@@ -93,10 +100,10 @@
 									</div>
 								</div>
 								<div class="col-3">
-									<input type="text" class="form-control" id="specIGG" name="specIGG" value="0.977" disabled>
+									<input type="text" class="form-control" id="specIGG" name="specIGG" value="0.977">
 								</div>
 								<div class="col-3">
-									<input type="text" class="form-control" id="senIGG" name="senIGG" value="0.921" disabled>
+									<input type="text" class="form-control" id="senIGG" name="senIGG" value="0.921">
 								</div>
 							</div>
 						</div> <!-- Table end -->
@@ -108,11 +115,11 @@
 								<label class="form-check-label" for="method1">
 									Locally optimal design
 								</label>
-							</div> 
+							</div>
 							<div class="form-check row">
 								<input class="form-check-input" type="radio" name="method" id="method2" value="grid" disabled>
 								<label class="form-check-label" for="method2">
-									Worst-case design <br> (This option is disabled on the application, and is available only to the developers at this moment.) 
+									Worst-case design <br> (This option is disabled on the application, and is available only to the developers at this moment.)
 								</label>
 							</div>
 						</div>
@@ -145,7 +152,7 @@
 									<div class="row">
 										<input type="number" class="form-control col-5" id="p1_start" value="0.01" step="0.001">
 										<div class="col-2">to</div>
-										<input type="number" class="form-control col-5" id="p1_end" value="0.15" step="0.001">	
+										<input type="number" class="form-control col-5" id="p1_end" value="0.15" step="0.001">
 									</div>
 								</div>
 							</div>
@@ -155,7 +162,7 @@
 									<div class="row">
 										<input type="number" class="form-control col-5" id="p2_start" value="0.10" step="0.001">
 										<div class="col-2">to</div>
-										<input type="number" class="form-control col-5" id="p2_end" value="0.50" step="0.001">	
+										<input type="number" class="form-control col-5" id="p2_end" value="0.50" step="0.001">
 									</div>
 								</div>
 							</div>
@@ -165,7 +172,7 @@
 									<div class="row">
 										<input type="number" class="form-control col-5" id="p3_start" value="0.00" step="0.001">
 										<div class="col-2">to</div>
-										<input type="number" class="form-control col-5" id="p3_end" value="0.02" step="0.001">	
+										<input type="number" class="form-control col-5" id="p3_end" value="0.02" step="0.001">
 									</div>
 								</div>
 							</div>
@@ -194,7 +201,7 @@
 								<label class="form-check-label" for="option1">
 									Estimate margin of error (for 95% confidence), given a budget
 								</label>
-							</div> 
+							</div>
 							<br>
 							<div class="form-group row">
 								<label class="col-sm-4 col-form-label" for="budget">Enter budget</label>
@@ -217,7 +224,7 @@
 				</div>
 
 				<!-- Loader css -->
-				<div id="loading" class="loader centered" style="display:none;"></div> 
+				<div id="loading" class="loader centered" style="display:none;"></div>
 
 				<!-- Render the result -->
 				{% if column_names.shape[0] > 0 %}
@@ -247,13 +254,11 @@
 						{% else %}
 							<h6>No optimal solution found for the budget {{ mCost }}, please update and run again.</h6>
 						{% endif %}
-					</div>	
-				{% endif %}	
-			</div>		
+					</div>
+				{% endif %}
+			</div>
 		</div>
-			<!--
 
-						-->
 		<hr>
 
 		<footer class="pt-4 my-md-5 pt-md-5 border-top">
@@ -267,24 +272,29 @@
 				</div>
 			</div>
 			<div class="row">
-			  <div class="col-6 col-md">
+			  <div class="col-3 col-md">
+				<a href="https://iisc.ac.in" class="link-secondary">
+					<img class="img-responsive logo" alt="Centre for Networked Intelligence, IISc, Bangalore" src="{{ url_for('static', filename='img/cni.jpg') }}">
+				</a>
+			  </div>
+			  <div class="col-3 col-md">
 				<a href="https://iisc.ac.in" class="link-secondary">
 					<img class="img-responsive logo" alt="IISc, Bangalore" src="{{ url_for('static', filename='img/iisc.png') }}">
 				</a>
 			  </div>
-			  <div class="col-6 col-md">
+			  <div class="col-3 col-md">
 				  <a href="https://www.isibang.ac.in/" class="link-secondary">
 					<img class="img-responsive logo" alt="ISI, Bangalore" src="{{ url_for('static', filename='img/isi.png') }}">
 				  </a>
 			  </div>
-			  <div class="col-6 col-md">
+			  <div class="col-3 col-md">
 				  <a href="https://phfi.org/" class="link-secondary">
 					<img class="img-responsive logo" alt="IIPH, Bangalore" src="{{ url_for('static', filename='img/iiph.jpeg') }}">
 				  </a>
 			  </div>
 			  <div class="col-6 col-md">
 				  <a href="https://strandls.com/" class="link-secondary">
-					<img class="img-responsive logo" alt="Strand LS, Bangalore" src="{{ url_for('static', filename='img/strand.jpeg') }}">
+					<img class="img-responsive" alt="Strand LS, Bangalore" src="{{ url_for('static', filename='img/strand.jpeg') }}">
 				  </a>
 			  </div>
 			</div>

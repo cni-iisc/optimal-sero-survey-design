@@ -5,20 +5,13 @@ from modules.make_fisher_info_matrix import *
 from modules.constOptFunc import *
 
 
-def exhaustive_search(cRAT, cRTPCR, cIgG, p1_start=0.01, p1_end=0.16, p2_start=0.10, p2_end=0.51, p3_start=0.00, p3_end=0.03):
+def exhaustive_search(cRAT, cRTPCR, cIgG, p1_start=0.01, p1_end=0.16, p2_start=0.10, p2_end=0.51, p3_start=0.00, p3_end=0.03, specRAT=0.975, specRTPCR=0.97,
+  specIGG=0.977, senRAT=0.5, senRTPCR=0.95, senIGG=0.921):
     testCosts = [cRAT, cRTPCR, cIgG] #Basic cost of RAT, RT-PCR, IgG antibody tests
     outputFile = './data/outputs/output_grid.tsv'
     dataDir = "./data/inputs"
 
     # Make fisher inforamtion matrix with specificities and specificities
-    specRAT = 0.975
-    specRTPCR =0.97
-    specIGG = 0.977
-
-    senRAT = 0.5
-    senRTPCR = 0.95
-    senIGG = 0.921
-
     mat = make_fisher_info_matrix(dataDir, testCosts)
     mat.set_sensitivities(senRAT, senRTPCR, senIGG)
     mat.set_specificities(specRAT, specRTPCR, specIGG)
