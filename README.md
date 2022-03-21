@@ -15,9 +15,9 @@ which uses `optimization/local.py` to do an optimization for a given budget $C$ 
 The worst case design can be obtained by running the script:
 
 ```shell
-python main.py -m grid
+python main.py -m yingyang
 ```
-which uses `optimization/grid_search.py` to get the optimization for the worst case-design proposed in Theorem  2.
+which uses `optimization/ying_yang.py` to get the optimization for the worst case-design proposed in Theorem  2.
 
 In addition to the optimization methods, the `main.py` script also allows users to enter custom inputs using the following input flags:
 
