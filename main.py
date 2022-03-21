@@ -1,12 +1,13 @@
 import argparse
 from optimization.local import *
 from optimization.grid_search import *
+from optimization.ying_yang import *
 
 default_method = 'local'
 default_budget = 10000
 default_rtpcr_cost = 0.1
-default_rat_cost = 0.5
-default_igg_cost = 0.3
+default_rat_cost = 0.01
+default_igg_cost = 0.03
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-C', help="Total budget available, C (in units of thousand rupees)", default=default_budget )
@@ -33,3 +34,9 @@ if methods == "grid":
   res, objFunVal = exhaustive_search(cRAT, cRTPCR, cIgG, p1_start=0.01, p1_end=0.16, p2_start=0.10, p2_end=0.51, p3_start=0.00, p3_end=0.03)
   res = get_final_solution(res, C, cRAT, cRTPCR, cIgG)
   print(res)
+
+
+if methods == "yingyang":
+  ying_yang_descent(cRAT, cRTPCR, cIgG, p1_start=0.09756, p2_start=0.67405, p3_start=0.1,specRAT=0.6)
+
+
