@@ -1,7 +1,5 @@
 import argparse
-from optimization.local import *
-from optimization.grid_search import *
-from optimization.ying_yang import *
+from optimization.yin_yang import *
 
 default_method = 'local'
 default_budget = 10000
@@ -24,19 +22,6 @@ cIgG = float(args.cIGG)
 methods = args.m
 
 
-if methods == "local":
-  p_vec =  [0.1, 0.3, 0.01]
-  res, objFunVal = local_optimization(cRAT, cRTPCR, cIgG, p_vec)
-  res = get_final_solution(res, C, cRAT, cRTPCR, cIgG)   
-  print(res)
-
-if methods == "grid":
-  res, objFunVal = exhaustive_search(cRAT, cRTPCR, cIgG, p1_start=0.01, p1_end=0.16, p2_start=0.10, p2_end=0.51, p3_start=0.00, p3_end=0.03)
-  res = get_final_solution(res, C, cRAT, cRTPCR, cIgG)
-  print(res)
-
-
-if methods == "yingyang":
-  ying_yang_descent(cRAT, cRTPCR, cIgG, p1_start=0.09756, p2_start=0.67405, p3_start=0.1,specRAT=0.6)
+ying_yang_descent(cRAT, cRTPCR, cIgG, p1_start=0.09756, p2_start=0.67405, p3_start=0.1,specRAT=0.6)
 
 

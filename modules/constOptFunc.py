@@ -68,4 +68,4 @@ def maximize_p(v_vec, mat, p_vec):
     a = minimize(varfun_max, initp, args=(v_vec, mat), method='SLSQP',  bounds=bounds, constraints=(const), tol=1e-6, options={'ftol': 1e-6,  'eps': 1e-6, 'maxiter': 1000, 'disp': False})
 
     v = a.fun
-    return v, a.x
+    return -v, a.x
