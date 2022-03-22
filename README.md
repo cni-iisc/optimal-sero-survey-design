@@ -17,7 +17,7 @@ The worst case design can be obtained by running the script:
 ```shell
 python main.py 
 ```
-which uses `optimization/ying_yang.py` to get the optimization for the worst case-design proposed in Theorem  2.
+which uses `optimization/yin_yang.py` to get the optimization for the worst case-design proposed in Theorem  2.
 
 In addition to the optimization methods, the `main.py` script also allows users to enter custom inputs using the following input flags:
 
