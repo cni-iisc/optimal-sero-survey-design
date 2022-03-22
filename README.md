@@ -15,7 +15,7 @@ which uses `optimization/local.py` to do an optimization for a given budget $C$ 
 The worst case design can be obtained by running the script:
 
 ```shell
-python main.py -m yingyang
+python main.py 
 ```
 which uses `optimization/ying_yang.py` to get the optimization for the worst case-design proposed in Theorem  2.
 
