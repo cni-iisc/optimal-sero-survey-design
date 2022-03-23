@@ -15,13 +15,13 @@ float_formatter = "{:.3f}".format
 np.set_printoptions(formatter={'float_kind':float_formatter},precision=3)
 
 
-def scorecard(iteration=0,p_vec=[],v_vec=[],va=0,vb=0,header=False):
+def scorecard(iteration=0,p_vec=[],v_vec=[],va=0,vb=0,weight=1,header=False):
     if header==True:
         header = [ 't', 'Bob (Min. player): p_t', 'Alice (Max. player): v_t' ,  'Bob' , 'Alice', 'Approx. Nash' ]
         print( "-"*125+"\n", "{:^4s} | {:^14s}  | {:^46s} | {:^10s} | {:^10s} | {:^15s}".format(*header), end="\n"+"-"*125+"\n" )
     else:
         print("  {:<4}".format(iteration),end="")
-        print("|", "  ", p_vec, " |  ", v_vec, " | ", "%.6f"%va, " | ", "%.6f"%vb , " | ", "%.12f"%(va/vb))
+        print("|", "  ", p_vec, " |  ", v_vec, " | ", "%.6f"%va, " | ", "%.6f"%vb , " | ", "%.12f"%(va/vb), " | ", weight)
 
 
 
@@ -44,24 +44,39 @@ def ying_yang_descent(cRAT, cRTPCR, cIgG, p1_start=0.16, p2_start=0.16, p3_start
     p_vec = p_shadow = np.array( [p1_start,p2_start,p3_start] )
     v_vec = np.array( [0.0, 0.0, 0.0, 0.5, 0.4, 0.1, 0.0] )
     ratio = 0.0
-    accuracy_level = 4  # 4 correspnds to 0.9999-aprox  
+    accuracy_level = 10  # 4 correspnds to 0.9999-aprox  
     iteration = 1
 
 
     scorecard([],header=True)
 
-    while ratio < 1-10**-accuracy_level:
+    weight = 1
+    prev_ratio = 1
+
+    while ratio < 1-10**-accuracy_level and iteration<3000:
         va, v_vec  = minimize_v(p_vec, mat, v_vec)
         vb, p_shadow = maximize_p(v_vec, mat, p_shadow)
-
-        ratio = min( np.round(va/vb,accuracy_level), 0.9 )
-
-        scorecard(iteration,p_vec,v_vec,va,vb,header=False)
+        ratio = va/vb
+        scorecard(iteration,p_vec,v_vec,va,vb,ratio,header=False)
 
         #np.array_str(v_vec,precision=2,float_formatter=2), " ", va, " " , vb, " ",ratio  )
 
         p_vec = np.add( ratio*p_vec, (1-ratio)*p_shadow)
+        prev_ratio = ratio
         iteration += 1
+
+
+    with open('equilibrium_point.npy','wb') as f:
+        np.save(f,p_vec)
+        np.save(f,v_vec)
+        np.save(f,np.array([ratio]))
+    
+    float_formatter = "{:.12f}".format
+    np.set_printoptions(formatter={'float_kind':float_formatter},precision=3)
+
+    with open('equilibrium_point.npy','rb') as f:
+        print(np.load(f), np.load(f),np.load(f) )
+
 
 
 
