@@ -18,7 +18,7 @@ def varfun_max(const_vec, max_vec, mat):
     # Matrix product u^T J u
     return -1 * np.matmul( np.matmul(u.transpose(), J), u)
 
-def minimize_v(p, mat, weps):
+def minimize_v(p, mat, weps, tolerance):
     #Initialise to uniform test patterns. Ensure interior point, to begin.
     lenw = mat.get_lenw()
     initw = weps
@@ -38,13 +38,13 @@ def minimize_v(p, mat, weps):
     bounds = ((0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1), (0, 1))
 
     # Optimise
-    a = minimize(varfun, initw, args=(p, mat), method='SLSQP',  bounds=bounds, constraints=(const), tol=1e-6, options={'ftol': 1e-6,  'eps': 1e-6, 'maxiter': 1000, 'disp': False})
+    a = minimize(varfun, initw, args=(p, mat), method='SLSQP',  bounds=bounds, constraints=(const), tol=tolerance, options={'ftol': tolerance,  'eps': tolerance, 'maxiter': 1000, 'disp': False})
 
 
     v = a.fun
     return v, a.x
 
-def maximize_p(v_vec, mat, p_vec):
+def maximize_p(v_vec, mat, p_vec, tolerance):
     #Initialise to uniform test patterns. Ensure interior point, to begin.
     lenp = 3
     #initp = np.full(lenp, 0.33)
@@ -65,7 +65,7 @@ def maximize_p(v_vec, mat, p_vec):
     bounds = ((0, 1), (0, 1), (0, 1))
 
     # Optimise
-    a = minimize(varfun_max, initp, args=(v_vec, mat), method='SLSQP',  bounds=bounds, constraints=(const), tol=1e-6, options={'ftol': 1e-6,  'eps': 1e-6, 'maxiter': 1000, 'disp': False})
+    a = minimize(varfun_max, initp, args=(v_vec, mat), method='SLSQP',  bounds=bounds, constraints=(const), tol=tolerance, options={'ftol': tolerance,  'eps': tolerance, 'maxiter': 1000, 'disp': False})
 
     v = a.fun
     return -v, a.x

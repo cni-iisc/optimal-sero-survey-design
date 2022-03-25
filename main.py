@@ -4,8 +4,8 @@ from optimization.yin_yang import *
 default_method = 'local'
 default_budget = 10000
 default_rtpcr_cost = 0.1
-default_rat_cost = 0.01
-default_igg_cost = 0.03
+default_rat_cost = 0.03
+default_igg_cost = 0.05
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-C', help="Total budget available, C (in units of thousand rupees)", default=default_budget )
@@ -22,6 +22,8 @@ cIgG = float(args.cIGG)
 methods = args.m
 
 
-ying_yang_descent(cRAT, cRTPCR, cIgG, p1_start=0.09756, p2_start=0.67405, p3_start=0.1,specRAT=0.6)
-
+if __name__ == '__main__':
+    p_initial = [0.125,0.2,0.3]
+    yin_yang_descent(cRAT, cRTPCR, cIgG, p1_start=p_initial[0], p2_start=p_initial[1], p3_start=p_initial[2])
+    
 

@@ -15,18 +15,34 @@ float_formatter = "{:.3f}".format
 np.set_printoptions(formatter={'float_kind':float_formatter},precision=3)
 
 
+def save_result(p_vec,v_vec,ratio):
+
+    # Save the final point
+    with open('equilibrium_point.npy','wb') as f:
+        np.save(f,p_vec)
+        np.save(f,v_vec)
+        np.save(f,np.array([ratio]))
+    
+    float_formatter = "{:.12f}".format
+    np.set_printoptions(formatter={'float_kind':float_formatter},precision=3)
+
+    with open('equilibrium_point.npy','rb') as f:
+        print("Optimal responses:")
+        print(np.load(f), np.load(f),np.load(f) )
+
 def scorecard(iteration=0,p_vec=[],v_vec=[],va=0,vb=0,weight=1,header=False):
     if header==True:
-        header = [ 't', 'Bob (Min. player): p_t', 'Alice (Max. player): v_t' ,  'Bob' , 'Alice', 'Approx. Nash' ]
+        header = [ 't', 'Bob (Max. player): p_t', 'Alice (Min. player): v_t' ,  'Alice' , 'Bob', 'Approx. Nash' ]
         print( "-"*125+"\n", "{:^4s} | {:^14s}  | {:^46s} | {:^10s} | {:^10s} | {:^15s}".format(*header), end="\n"+"-"*125+"\n" )
     else:
         print("  {:<4}".format(iteration),end="")
-        print("|", "  ", p_vec, " |  ", v_vec, " | ", "%.6f"%va, " | ", "%.6f"%vb , " | ", "%.12f"%(va/vb), " | ", weight)
+        print("|", "  ", p_vec, " |  ", v_vec, " | ", "%.6f"%va, " | ", "%.6f"%vb , " | ", "%.12f"%(va/vb))
 
 
 
 
-def ying_yang_descent(cRAT, cRTPCR, cIgG, p1_start=0.16, p2_start=0.16, p3_start=0.10, specRAT=0.975, specRTPCR=0.97, specIGG=0.977, senRAT=0.75, senRTPCR=0.95, senIGG=0.921):
+def yin_yang_descent(cRAT, cRTPCR, cIgG, p1_start=0.16, p2_start=0.16, p3_start=0.10, 
+        specRAT=0.975, specRTPCR=0.97, specIGG=0.977, senRAT=0.51, senRTPCR=0.95, senIGG=0.921):
     testCosts = [cRAT, cRTPCR, cIgG] #Basic cost of RAT, RT-PCR, IgG antibody tests
     outputFile = './data/outputs/output_grid.tsv'
     dataDir = "./data/inputs"
@@ -37,14 +53,12 @@ def ying_yang_descent(cRAT, cRTPCR, cIgG, p1_start=0.16, p2_start=0.16, p3_start
     mat.set_specificities(specRAT, specRTPCR, specIGG)
 
 
-    # Uncoment this if believe that p3* = 0 (Conjecture)
-    # p3_start = 0.0
-
+    # Solving the optimization problem using a min-max game 
 
     p_vec = p_shadow = np.array( [p1_start,p2_start,p3_start] )
     v_vec = np.array( [0.0, 0.0, 0.0, 0.5, 0.4, 0.1, 0.0] )
     ratio = 0.0
-    accuracy_level = 10  # 4 correspnds to 0.9999-aprox  
+    accuracy_level = 3  # 3 correspnds to 0.999-approx  
     iteration = 1
 
 
@@ -52,30 +66,22 @@ def ying_yang_descent(cRAT, cRTPCR, cIgG, p1_start=0.16, p2_start=0.16, p3_start
 
     weight = 1
     prev_ratio = 1
+    tolerance = 1e-6
 
-    while ratio < 1-10**-accuracy_level and iteration<3000:
-        va, v_vec  = minimize_v(p_vec, mat, v_vec)
-        vb, p_shadow = maximize_p(v_vec, mat, p_shadow)
+    while ratio < 1-10**-accuracy_level and iteration<100:
+
+        va, v_vec  = minimize_v(p_vec, mat, v_vec, tolerance)
+        vb, p_shadow = maximize_p(v_vec, mat, p_shadow, tolerance)
+
         ratio = va/vb
+
         scorecard(iteration,p_vec,v_vec,va,vb,ratio,header=False)
 
-        #np.array_str(v_vec,precision=2,float_formatter=2), " ", va, " " , vb, " ",ratio  )
-
         p_vec = np.add( ratio*p_vec, (1-ratio)*p_shadow)
+
         prev_ratio = ratio
+        tolerance = vb-va
         iteration += 1
-
-
-    with open('equilibrium_point.npy','wb') as f:
-        np.save(f,p_vec)
-        np.save(f,v_vec)
-        np.save(f,np.array([ratio]))
-    
-    float_formatter = "{:.12f}".format
-    np.set_printoptions(formatter={'float_kind':float_formatter},precision=3)
-
-    with open('equilibrium_point.npy','rb') as f:
-        print(np.load(f), np.load(f),np.load(f) )
 
 
 
