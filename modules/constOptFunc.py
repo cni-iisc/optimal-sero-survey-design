@@ -4,7 +4,7 @@ from scipy.optimize import minimize
 # # Interest is in minimising the u^T I(w)^-1 u.
 def varfun(min_vec, const_vec, mat):
     I = mat.getWeightedFisherInfo(min_vec, const_vec)
-    u = np.array([1.0, 1.0, 1.0])
+    u = np.array([1.0, 1.0])
     J = np.linalg.inv(I) #getting inverse of matrix I
     # Matrix product u^T J u
     return np.matmul( np.matmul(u.transpose(), J), u)

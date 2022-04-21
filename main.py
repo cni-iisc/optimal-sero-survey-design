@@ -24,7 +24,7 @@ methods = args.m
 
 
 if methods == "local":
-  p_vec =  [0.1, 0.3, 0.01]
+  p_vec =  [0.1, 0.3]
   res, objFunVal = local_optimization(cRAT, cRTPCR, cIgG, p_vec)
   res = get_final_solution(res, C, cRAT, cRTPCR, cIgG)   
   print(res)
