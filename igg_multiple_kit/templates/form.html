@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>AJAX Example</title>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/json2html/2.1.0/json2html.min.js"></script>
+
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+	<script src="{{ url_for('static', filename='js/form.js') }}"></script>
+</head>
+<body>
+
+
+<div class="container">
+    <h1>Serosurvey to estimate SARS-CoV2 antibody prevalence</h1>
+	<br><br><br><br>
+
+<style>
+th, td {
+  padding-top: 10px;
+  padding-bottom: 20px;
+  padding-left: 30px;
+  padding-right: 40px;
+  font-size: 20px;
+}
+</style>
+
+
+    <form method="post">
+
+        <table padding="5px">
+            <tr> 
+                <th>Testing kit</th>
+                <th>Cost</th>
+                <th>Sensitivity</th>
+                <th>Specificity</th>
+            </tr>
+            <tr>
+                <td>Kit #1</td>
+                <td><input type='text' name='r[]'  value='300' />  </td> 
+                <td><input type='text' name='s[]'  value='0.95' /> </td>
+                <td><input type='text' name='c[]'  value='0.95' /> </td>
+            </tr>
+
+            <tr>
+                <td>Kit #2</td>
+                <td><input type='text' name='r[]'  value='400' />  </td> 
+                <td><input type='text' name='s[]'  value='0.975' /> </td>
+                <td><input type='text' name='c[]'  value='0.985' /> </td>
+            </tr>
+            <tr>
+                <td>Kit #3</td>
+                <td><input type='text' name='r[]'  placeholder='500' />  </td> 
+                <td><input type='text' name='s[]'  placeholder='0.95' /> </td>
+                <td><input type='text' name='c[]'  placeholder='0.85' /> </td>
+            </tr>
+            <tr>
+                <th>Budget</th>
+                <td><input type="text" id="budgetInput" placeholder="Enter the budget in rupees"></td>
+                <td></td>
+                <td></td>
+            </tr>
+
+
+        </table>
+
+          	  <button type="submit" class="btn btn-default"  style="height:40px; width:100px;margin:20px; background:orange;" >Submit</button>
+
+    </form>
+
+	<br>
+
+    <p>
+	<div id="errorAlert" class="alert alert-danger" role="alert" style="display:none;"></div>
+
+	<div id="dataoutput">
+    </div>
+    </p>
+
+</div>
+
+
+</body>
+</html>
