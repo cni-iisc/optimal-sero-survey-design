@@ -38,7 +38,8 @@ $(document).ready(function() {
                     out += "<td>"+k.num+"</td>";
                     out += "</tr>";
                 }
-                out += "</table></p>"
+                out += "</table></p>";
+                out += "<p>Std. error: "+data.stderror+"</p>";
                 placeholder.innerHTML =  out;
 				$('#errorAlert').hide();
 			}

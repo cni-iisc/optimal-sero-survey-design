@@ -155,7 +155,7 @@ def process():
 
     if r[0]:
         arr_kit = design(alloc)
-        return jsonify( {"kit":arr_kit} )
+        return jsonify( {"kit":arr_kit, "stderror":stddev} )
 
     return jsonify({'error' : 'Missing data!'})
 
