@@ -122,13 +122,14 @@ def tidy(r):
         i += 1
     return l
     
-def design(alloc):
+def design(alloc,rup,budget):
     arr_kit = []
     for i in range(T):
         curkit = {}
         if alloc[i]>1e-8:
             curkit['id'] = str(i+1)
-            curkit['num'] = str(alloc[i])
+            curkit['num'] = str( int ((alloc[i]*budget)/rup[i] ) )
+            curkit['alloc'] = rup[i]*int((alloc[i]*budget)/rup[i]) 
             arr_kit.append( curkit )
     print( arr_kit )
     return arr_kit
@@ -139,11 +140,15 @@ def design(alloc):
 def process():
     print('Processing')
     budget = int( request.form['budget'] )
-    if budget <= 0 or budget > 1000000:
-        return jsonify({'error' : 'Invalid budget!'})
-    r = tidy( request.form.getlist('r[]') )/budget
+    r = rup = tidy( request.form.getlist('r[]') )
     c = tidy( request.form.getlist('c[]') )
     s = tidy( request.form.getlist('s[]') )
+
+    if budget < sum(r) or budget > 1000000:
+        return jsonify({'error' : 'Invalid budget!'})
+
+    normalized_budget = sum(r)*10
+    r = r/normalized_budget
 
     print("Budget is:", budget)
     print("Sens :", s)
@@ -151,10 +156,11 @@ def process():
     print("Cost :", r)
 
     alloc, stddev = set_variables(r,s,c)
+    stddev /= np.sqrt(budget/normalized_budget)
     print(alloc,stddev)
 
     if r[0]:
-        arr_kit = design(alloc)
+        arr_kit = design(alloc,rup,budget)
         return jsonify( {"kit":arr_kit, "stderror":stddev} )
 
     return jsonify({'error' : 'Missing data!'})
