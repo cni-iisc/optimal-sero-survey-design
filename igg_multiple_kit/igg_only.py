@@ -8,10 +8,6 @@ c = np.array([0.85,0.85,0.75, 0.95,0.95,0.65])
 s = np.array([0.95,0.85,0.85, 0.875,0.75,0.99])
 
 
-#r = np.array([0.01,0.01,0.0075])
-#c = np.array([0.85,0.85,0.8])
-#s = np.array([0.95,0.95,0.9])
-
 f = np.array([1.0/T]*T) # Fraction of the budget allocated to test i
 p = 0.5
 
@@ -55,9 +51,7 @@ def best_f(curp,cur_f):
     global p
     p = curp
 
-    f0 = [1.0/T]*T
-    #f0 = cur_f
-    #print( variance_f(f0) )
+    f0 = cur_f
 
     b = (0.0,1.0)
     bnds = (b,)*T
@@ -86,16 +80,15 @@ def best_design():
             bestf = cur_f
 
     return( bestf.round(3).tolist(), np.sqrt(best_var) )
-    #print("Max. player:", best_p( bestf ) )
-    #print("Min. player:", best_f( bestp, [1.0/T]*T  ) )
 
 
 def set_variables(rr,cc,ss):
-    global r,s,c,T
+    global r,s,c,T,f
     r = rr
     c = cc
     s = ss
     T = len(r)
+    f = np.array([1.0/T]*T) 
     return best_design()
 
 
@@ -106,7 +99,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-	return render_template('form.html')
+	return render_template('igg_form.html')
 
 
 def tidy(r):
@@ -118,7 +111,10 @@ def tidy(r):
     n = len(r)
     i = 0
     while i<n and r[i]!='':
-        l = np.append(l, float(r[i]) )
+        try:
+            l = np.append(l, float(r[i]) )
+        except:
+            return []
         i += 1
     return l
     
@@ -133,37 +129,76 @@ def design(alloc,rup,budget):
             arr_kit.append( curkit )
     print( arr_kit )
     return arr_kit
-    #return [ {'id' : "1", 'num': "101"}, {'id':"2",'num':"234"}]
 
+
+def invalid_input(r,c,s,budget):
+    for x,y,z in zip(r,c,s):
+        try:
+            float(x)
+            float(y)
+            float(z)
+            float(budget)
+        except:
+            return True
+
+    return False
 
 @app.route('/process', methods=['POST'])
 def process():
-    print('Processing')
-    budget = int( request.form['budget'] )
-    r = rup = tidy( request.form.getlist('r[]') )
-    c = tidy( request.form.getlist('c[]') )
-    s = tidy( request.form.getlist('s[]') )
 
-    if budget < sum(r) or budget > 1000000:
-        return jsonify({'error' : 'Invalid budget!'})
+    option =  int(request.form['opt'])
+    print('Option',option)
 
-    normalized_budget = sum(r)*10
+    if option==1:
+        try:
+            budget = int( request.form['budget'] )
+        except:
+            return jsonify({'error' : 'Budget must be an integer!'})
+
+    if option==2:
+        try:
+            margin =  float(request.form['m'])
+            print("Margin:",margin)
+        except:
+            return jsonify({'error' : 'Margin must be between 0.005 and 0.01.'})
+
+
+
+    r = request.form.getlist('r[]') 
+    c = request.form.getlist('c[]') 
+    s = request.form.getlist('s[]') 
+
+    if tidy(r)==[] or tidy(c)==[] or tidy(s)==[]:
+        return jsonify({'error' : 'Invalid input!'})
+
+    r = rup = tidy( r )
+    c = tidy( c )
+    s = tidy( s )
+
+    normalized_budget = sum(r)*10 # This 10 doesnt matter much, it's there  to get around numerical errors.
     r = r/normalized_budget
-
-    print("Budget is:", budget)
-    print("Sens :", s)
-    print("Spec :", c)
-    print("Cost :", r)
-
+    # print("Budget is:", budget, "Sens:",s, "Spec:",c, "Cost",r)
     alloc, stddev = set_variables(r,s,c)
-    stddev /= np.sqrt(budget/normalized_budget)
-    print(alloc,stddev)
+    normal_std = stddev.copy()
 
-    if r[0]:
+
+    if option==1:
+
+        if budget < sum(r):
+            return jsonify({'error' : 'Budget is too low!'})
+        if budget > 100000001:
+            return jsonify({'error' : 'Budget is too high'})
+
         arr_kit = design(alloc,rup,budget)
+        stddev = normal_std/np.sqrt(budget/normalized_budget)
+        return jsonify( {"kit":arr_kit, "stderror":stddev} )
+    else:
+        est_budget = normalized_budget*((stddev/margin)**2) 
+        print("Estimated Budget:",est_budget)
+        arr_kit = design(alloc,rup,int(est_budget))
+        stddev = normal_std/np.sqrt(est_budget/normalized_budget)
         return jsonify( {"kit":arr_kit, "stderror":stddev} )
 
-    return jsonify({'error' : 'Missing data!'})
 
 if __name__ == '__main__':
 	app.run(debug=True)
