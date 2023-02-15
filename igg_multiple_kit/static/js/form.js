@@ -35,7 +35,7 @@ $(document).ready(function() {
             option = 2;
         }
 
-        console.log(rupees)
+        console.log("Rupees:",rupees)
         console.log('Budget')
         console.log(b)
         console.log(sens)
@@ -55,6 +55,7 @@ $(document).ready(function() {
 			type : 'POST',
 			url : '/process'
 		})
+
 		.done(function(data) {
 			if (data.error) {
                 let placeholder = document.querySelector('#dataoutput');  

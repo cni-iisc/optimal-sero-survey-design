@@ -6,19 +6,40 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/json2html/2.1.0/json2html.min.js"></script>
 
-
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-
 	<script src="{{ url_for('static', filename='js/form.js') }}"></script>
+
+    <script> 
+
+    function Mykit(){
+            // Find a <table> element with id="myTable":
+            var table = document.getElementById("mykits");
+
+            // Create an empty <tr> element and add it to the 1st position of the table:
+            var row = table.insertRow(-1);
+
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
+            var cell4 = row.insertCell(3);
+
+            // Add some text to the new cells:
+            cell1.innerHTML = "Kit #5";
+            cell2.innerHTML = "<input type='text' name='r[]'/>";
+            cell3.innerHTML = "<input type='text' name='s[]'/>";
+            cell4.innerHTML = "<input type='text' name='c[]'/>";
+
+    }
+    </script>
+
 </head>
 <body>
 
 
 <div class="container">
-    <h1>Serosurvey to estimate SARS-CoV2 antibody prevalence</h1>
+    <h1>Serosurvey to estimate antibody prevalence</h1>
 	<br><br><br><br>
 
 <style>
@@ -36,13 +57,15 @@ th, td {
 
         <h3>Kit specifications</h3>
 
-        <table padding="5px">
+        <table padding="5px" id="mykits">
             <tr> 
                 <th>Testing kit</th>
                 <th>Cost ( &#8377; )</th>
                 <th>Sensitivity</th>
                 <th>Specificity</th>
             </tr>
+
+
             <tr>
                 <td>Kit #1</td>
                 <td><input type='text' name='r[]'  value='300' />  </td> 
@@ -56,34 +79,28 @@ th, td {
                 <td><input type='text' name='s[]'  placeholder='0.975' /> </td>
                 <td><input type='text' name='c[]'  placeholder='0.985' /> </td>
             </tr>
+
             <tr>
                 <td>Kit #3</td>
                 <td><input type='text' name='r[]'  />  </td> 
                 <td><input type='text' name='s[]'  /> </td>
                 <td><input type='text' name='c[]'  /> </td>
             </tr>
+
+            <!--
             <tr>
                 <td>Kit #4</td>
                 <td><input type='text' name='r[]'  />  </td> 
                 <td><input type='text' name='s[]'  /> </td>
                 <td><input type='text' name='c[]'  /> </td>
             </tr>
-
-                <!--
-            <tr>
-                <th>Budget ( &#8377; )</th>
-                <td><input type="text" id="budgetInput"></td>
-                <td></td>
-                <td></td>
-
-            </tr>
-
-                -->
-
-
+            -->
 
 
         </table>
+
+        <input type="button" style="background-color:black;color:white;width:150px; height:40px;" onclick="Mykit()" value="Add kits" />
+
 
         <!-------------------->
 
@@ -118,8 +135,6 @@ th, td {
 						</div>
 
         <!-------------------->
-
-
 
           	  <button type="submit" class="btn btn-default"  style="height:40px; width:100px;margin:20px; background:orange;" >Submit</button>
 
