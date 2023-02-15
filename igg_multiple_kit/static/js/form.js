@@ -73,7 +73,7 @@ $(document).ready(function() {
                     out += "</tr>";
                 }
                 out += "</table></p>";
-                out += "<p><h4>Std. error: "+data.stderror+"</h4></p>";
+                out += "<p><h4>Margin of error: "+data.stderror+"</h4></p>";
                 placeholder.innerHTML =  out;
 				$('#errorAlert').hide();
 			}

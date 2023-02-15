@@ -12,24 +12,27 @@
 	<script src="{{ url_for('static', filename='js/form.js') }}"></script>
 
     <script> 
-
+    // Add an addition kit
+    var count = 4;
     function Mykit(){
-            // Find a <table> element with id="myTable":
+        if(count<8){
             var table = document.getElementById("mykits");
-
-            // Create an empty <tr> element and add it to the 1st position of the table:
             var row = table.insertRow(-1);
-
             var cell1 = row.insertCell(0);
             var cell2 = row.insertCell(1);
             var cell3 = row.insertCell(2);
             var cell4 = row.insertCell(3);
 
-            // Add some text to the new cells:
-            cell1.innerHTML = "Kit #5";
+            cell1.innerHTML = "Kit #"+count.toString();
             cell2.innerHTML = "<input type='text' name='r[]'/>";
             cell3.innerHTML = "<input type='text' name='s[]'/>";
             cell4.innerHTML = "<input type='text' name='c[]'/>";
+            count += 1
+        }
+        else{
+            var but = document.getElementById("addkit");
+            but.value = "Can't add more kits!";
+        }
 
     }
     </script>
@@ -40,7 +43,7 @@
 
 <div class="container">
     <h1>Serosurvey to estimate antibody prevalence</h1>
-	<br><br><br><br>
+	<br><br>
 
 <style>
 th, td {
@@ -75,9 +78,9 @@ th, td {
 
             <tr>
                 <td>Kit #2</td>
-                <td><input type='text' name='r[]'  placeholder='290' />  </td> 
-                <td><input type='text' name='s[]'  placeholder='0.975' /> </td>
-                <td><input type='text' name='c[]'  placeholder='0.985' /> </td>
+                <td><input type='text' name='r[]' />  </td> 
+                <td><input type='text' name='s[]' /> </td>
+                <td><input type='text' name='c[]' /> </td>
             </tr>
 
             <tr>
@@ -87,19 +90,11 @@ th, td {
                 <td><input type='text' name='c[]'  /> </td>
             </tr>
 
-            <!--
-            <tr>
-                <td>Kit #4</td>
-                <td><input type='text' name='r[]'  />  </td> 
-                <td><input type='text' name='s[]'  /> </td>
-                <td><input type='text' name='c[]'  /> </td>
-            </tr>
-            -->
 
 
         </table>
 
-        <input type="button" style="background-color:black;color:white;width:150px; height:40px;" onclick="Mykit()" value="Add kits" />
+        <input id="addkit" type="button" style="background-color:gray;color:white;width:150px; height:40px;font-weight:bold;" onclick="Mykit()" value="Add a kit" />
 
 
         <!-------------------->

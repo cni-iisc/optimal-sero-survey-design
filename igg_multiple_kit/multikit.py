@@ -145,7 +145,7 @@ def invalid_input(r,c,s,budget):
 
 @app.route('/process', methods=['POST'])
 def process():
-
+    sigma_factor = 1.96
     option =  int(request.form['opt'])
     print('Option',option)
 
@@ -157,7 +157,7 @@ def process():
 
     if option==2:
         try:
-            margin =  float(request.form['m'])
+            margin =  float(request.form['m'])/sigma_factor
             print("Margin:",margin)
         except:
             return jsonify({'error' : 'Margin must be between 0.005 and 0.01.'})
@@ -191,13 +191,13 @@ def process():
 
         arr_kit = design(alloc,rup,budget)
         stddev = normal_std/np.sqrt(budget/normalized_budget)
-        return jsonify( {"kit":arr_kit, "stderror":stddev} )
+        return jsonify( {"kit":arr_kit, "stderror":stddev*sigma_factor} )
     else:
         est_budget = normalized_budget*((stddev/margin)**2) 
         print("Estimated Budget:",est_budget)
         arr_kit = design(alloc,rup,int(est_budget))
         stddev = normal_std/np.sqrt(est_budget/normalized_budget)
-        return jsonify( {"kit":arr_kit, "stderror":stddev} )
+        return jsonify( {"kit":arr_kit, "stderror":stddev*sigma_factor} )
 
 
 if __name__ == '__main__':
